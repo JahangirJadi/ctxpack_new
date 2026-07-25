@@ -23,8 +23,8 @@
 
 **Purpose**: Project initialization and basic packaging setup.
 
-- [ ] T001 Create `pyproject.toml` at repository root to configure Setuptools console scripts entry point.
-- [ ] T002 Initialize `tests/test_ctxpack.py` at repository root with a base standard `unittest.TestCase` harness.
+- [X] T001 Create `pyproject.toml` at repository root to configure Setuptools console scripts entry point.
+- [X] T002 Initialize `tests/test_ctxpack.py` at repository root with a base standard `unittest.TestCase` harness.
 
 ---
 
@@ -34,9 +34,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T003 Implement `argparse` CLI parser in `ctxpack.py` to parse path, task, budget, out, and manifest flags, overriding `.error()` to print a single-line message to `stderr` and exit with code 1.
-- [ ] T004 Implement recursive Walker and UTF-8 decoder `walk_files(path: str)` in `ctxpack.py` to traverse files, sorting nodes alphabetically and checking readability.
-- [ ] T005 Implement global exception hooks in the core `main()` function in `ctxpack.py` to intercept tracebacks, print single-line error descriptions to `stderr`, and return exit codes 2 (path missing/unreadable) or 1 (general errors).
+- [X] T003 Implement `argparse` CLI parser in `ctxpack.py` to parse path, task, budget, out, and manifest flags, overriding `.error()` to print a single-line message to `stderr` and exit with code 1.
+- [X] T004 Implement recursive Walker and UTF-8 decoder `walk_files(path: str)` in `ctxpack.py` to traverse files, sorting nodes alphabetically and checking readability.
+- [X] T005 Implement global exception hooks in the core `main()` function in `ctxpack.py` to intercept tracebacks, print single-line error descriptions to `stderr`, and return exit codes 2 (path missing/unreadable) or 1 (general errors).
 
 **Checkpoint**: Foundation ready - CLI flags, file walkers, and traceback handling are fully functional.
 
@@ -50,13 +50,13 @@
 
 ### Tests for User Story 1
 
-- [ ] T006 [P] [US1] Create unit tests in `tests/test_ctxpack.py` validating alphabetized walker sorting, UTF-8 text vs binary classification, and directory blocklisting.
-- [ ] T007 [P] [US1] Create unit tests in `tests/test_ctxpack.py` verifying the token counting ceiling formula: `math.ceil(len(text) / 4)`.
+- [X] T006 [P] [US1] Create unit tests in `tests/test_ctxpack.py` validating alphabetized walker sorting, UTF-8 text vs binary classification, and directory blocklisting.
+- [X] T007 [P] [US1] Create unit tests in `tests/test_ctxpack.py` verifying the token counting ceiling formula: `math.ceil(len(text) / 4)`.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement file block formatter in `ctxpack.py` wrapping paths in `## {path}` headings and content inside code blocks.
-- [ ] T009 [US1] Implement greedy bundle concatenation loops in `ctxpack.py` to append formatted blocks in alphabetical path order.
+- [X] T008 [US1] Implement file block formatter in `ctxpack.py` wrapping paths in `## {path}` headings and content inside code blocks.
+- [X] T009 [US1] Implement greedy bundle concatenation loops in `ctxpack.py` to append formatted blocks in alphabetical path order.
 
 **Checkpoint**: At this point, User Story 1 is fully functional and can bundle text files deterministically.
 
@@ -70,15 +70,15 @@
 
 ### Tests for User Story 2
 
-- [ ] T010 [P] [US2] Create unit tests in `tests/test_ctxpack.py` verifying lowercase task tokenization and weighted scoring (3x path, 1x content, 10x cap, length normalization, depth penalty).
-- [ ] T011 [P] [US2] Create unit tests in `tests/test_ctxpack.py` verifying strict budget checks, conditional directory tree inclusion (≤ 5% budget), and line-by-line head truncation.
+- [X] T010 [P] [US2] Create unit tests in `tests/test_ctxpack.py` verifying lowercase task tokenization and weighted scoring (3x path, 1x content, 10x cap, length normalization, depth penalty).
+- [X] T011 [P] [US2] Create unit tests in `tests/test_ctxpack.py` verifying strict budget checks, conditional directory tree inclusion (≤ 5% budget), and line-by-line head truncation.
 
 ### Implementation for User Story 2
 
-- [ ] T012 [US2] Implement tokenized relevance calculation function `rank_files(files: list[dict], task: str)` in `ctxpack.py`.
-- [ ] T013 [US2] Implement deterministic visual directory tree generator `generate_tree(path: str)` in `ctxpack.py` sorting entries alphabetically.
-- [ ] T014 [US2] Implement line-by-line head truncation function `truncate_file_content(content: str, remaining_budget: int)` in `ctxpack.py` with 50-token margin and `[TRUNCATED]` markers.
-- [ ] T015 [US2] Integrate ranking, tree size checking (≤ 5%), and greedy truncation into `assemble_bundle()` in `ctxpack.py`.
+- [X] T012 [US2] Implement tokenized relevance calculation function `rank_files(files: list[dict], task: str)` in `ctxpack.py`.
+- [X] T013 [US2] Implement deterministic visual directory tree generator `generate_tree(path: str)` in `ctxpack.py` sorting entries alphabetically.
+- [X] T014 [US2] Implement line-by-line head truncation function `truncate_file_content(content: str, remaining_budget: int)` in `ctxpack.py` with 50-token margin and `[TRUNCATED]` markers.
+- [X] T015 [US2] Integrate ranking, tree size checking (≤ 5%), and greedy truncation into `assemble_bundle()` in `ctxpack.py`.
 
 **Checkpoint**: At this point, User Stories 1 and 2 are fully integrated; budget constraints and relevance sorting are actively enforced.
 
@@ -92,12 +92,12 @@
 
 ### Tests for User Story 3
 
-- [ ] T016 [P] [US3] Create unit tests in `tests/test_ctxpack.py` validating manifest dictionary structure, sorted key dumps, and single-line summary stdout formatting.
+- [X] T016 [P] [US3] Create unit tests in `tests/test_ctxpack.py` validating manifest dictionary structure, sorted key dumps, and single-line summary stdout formatting.
 
 ### Implementation for User Story 3
 
-- [ ] T017 [US3] Implement detailed JSON serializable structure `build_manifest()` in `ctxpack.py` tracking included and excluded reasons.
-- [ ] T018 [US3] Implement output writer `write_output()` in `ctxpack.py` supporting stdout, bundle file output, manifest file serialization, and stderr summary printing.
+- [X] T017 [US3] Implement detailed JSON serializable structure `build_manifest()` in `ctxpack.py` tracking included and excluded reasons.
+- [X] T018 [US3] Implement output writer `write_output()` in `ctxpack.py` supporting stdout, bundle file output, manifest file serialization, and stderr summary printing.
 
 **Checkpoint**: Manifest serialization is completed and fully traceable.
 
@@ -107,8 +107,8 @@
 
 **Purpose**: Non-functional validations, documentation, and final system testing.
 
-- [ ] T019 Write complete, developer-friendly documentation in `README.md` in the project root.
-- [ ] T020 Run integration and platform testing in `tests/test_ctxpack.py` verifying byte-identical outputs across multiple identical runs.
+- [X] T019 Write complete, developer-friendly documentation in `README.md` in the project root.
+- [X] T020 Run integration and platform testing in `tests/test_ctxpack.py` verifying byte-identical outputs across multiple identical runs.
 
 ---
 
