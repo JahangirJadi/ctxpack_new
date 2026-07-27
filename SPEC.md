@@ -90,7 +90,7 @@ ctxpack: {used}/{budget} tokens used, {len(included)} files included, {len(exclu
    - File's relative path (lowercase, weighted: **3 points per occurrence**).
    - File's content (lowercase, weighted: **1 point per occurrence**, capped at **10 occurrences per unique token** to prevent extremely large files from dominating).
 3. **Depth Penalty**: A penalty is applied to favor files closer to the project root:
-   $$\text{score} = \frac{\text{path\_matches} \times 3 + \text{content\_matches} \times 1}{\text{len(file\_content)} \times (1 + \text{depth})}$$
+   $$\text{score} = \frac{\text{path\_matches} \times 3 + \text{content\_matches} \times 1}{1 + \text{depth}}$$
    where `depth` is the number of path separators (e.g. `/` or `\`) in the relative path.
 4. **Ordering**: Files with `status != 'text'` get a score of `0`. The file list is sorted by `score` in descending order. If there is a tie, files are sorted alphabetically by their relative path.
 

@@ -40,9 +40,12 @@ class TestWalkFiles(unittest.TestCase):
         results = walk_files(self.tmpdir)
         paths = [r['path'] for r in results]
         self.assertIn('real/file.py', paths)
-        self.assertNotIn('.git/config', paths)
-        self.assertNotIn('node_modules/pkg/index.js', paths)
-        self.assertNotIn('__pycache__/main.cpython.py', paths)
+        
+        noise_dirs = [r for r in results if r['status'] == 'noise_dir']
+        self.assertEqual(len(noise_dirs), 3)
+        self.assertEqual({n['path'] for n in noise_dirs}, {
+            '.git/config', 'node_modules/pkg/index.js', '__pycache__/main.cpython.py'
+        })
 
     def test_utf8_text_classification(self):
         self._write('hello.txt', 'hello world')
@@ -88,6 +91,25 @@ class TestWalkFiles(unittest.TestCase):
         from ctxpack import walk_files
         results = walk_files(self.tmpdir)
         self.assertEqual(results[0]['tokens'], expected)
+
+    def test_gitignore_rules(self):
+        self._write('.gitignore', "*.log\n/temp/\nignored_file.txt")
+        self._write('app.log', 'logging')
+        self._write('temp/app.py', 'code')
+        self._write('ignored_file.txt', 'secret')
+        self._write('valid.py', 'print(1)')
+        
+        from ctxpack import walk_files
+        results = walk_files(self.tmpdir)
+        
+        ignored = [r for r in results if r['status'] == 'ignored']
+        self.assertEqual(len(ignored), 3)
+        ignored_paths = {r['path'] for r in ignored}
+        self.assertEqual(ignored_paths, {'app.log', 'temp/app.py', 'ignored_file.txt'})
+        
+        valid = [r for r in results if r['status'] == 'text' and r['path'] != '.gitignore']
+        self.assertEqual(len(valid), 1)
+        self.assertEqual(valid[0]['path'], 'valid.py')
 
 
 class TestRankFiles(unittest.TestCase):
